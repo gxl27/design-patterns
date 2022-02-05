@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+{% set pattern = twig_patterns.getPattern(14) %}
+{% block title %}{{ pattern.name }}{% endblock %}
+{% block pagetitle %}{{ pattern.name  }} ({{ pattern.type }}){% endblock %}
+{% block body %}
+    {# get specfic pattern from the global object "twig_pattern"  #}
+    
+    {# include the pattern header for each pattern page #}
+
+<section class='pt-6 pb-3 flexlg:flex-row'>
+    <h1 class='text-lg text-primary font-bold font-Plex uppercase pb-2'>{{ pattern.name }}</h1>
+</section>
+<section class='pt-2 pb-3 flex flex-col lg:flex-row flex-wrap-reverse'>
+<div class='py-4 lg:w-2/4 flex flex-col gap-4 border-stone-50 lg:border-r-2 lg:pr-6'>
+
+    {# include pattern details and implementation #}
+    {% include '/_pattern/_header.html.twig' %}
+</div>
+
+<div class='py-4 lg:w-2/4 lg:pl-6'>
+    <h2 class='text-primary font-Plex uppercase pb-2'>Input values</h2>
+    {{ form_start(form) }}
+    <div class='gap-4 flex flex-col '>
+        <div class='flex justify-end font-bold'>
+         Ballance : {{ (ballance/100)|number_format(2) }} $
+        </div> 
+        {% for item in form.games %}
+            <div class='flex flex-col  border-gray-100 bg-white border-2 rounded-md'>
+                <div class='flex flex-col items-start w-full font-bold  gap-1 p-3 bg-white'>
+                    <div>
+                        {{ item.vars.value.team1 }} 
+                    </div>
+                    <div>
+                        {{ item.vars.value.team2 }} 
+                    </div>
+                    
+                </div>
+                <div class='flex flex-row justify-between items-center w-full gap-2 rounded-md'>
+                    <div class='clickbet flex flex-row justify-between items-center w-1/2 text-gray-600 border-gray-300 bg-white border-2 uppercase p-1 rounded-md font-bold cursor-pointer' data-value="{{ item.vars.value.marked1 }}" data-pos=0>
+                        <div>1</div>
+                        <div>{{ (item.vars.value.bet1/100)|number_format(2) }}</div>
+                        {{ form_row(item.marked1) }}
+                    </div>
+                    <div class='clickbet flex flex-row justify-between items-center w-1/2 text-gray-600 border-gray-300 bg-white border-2 uppercase p-1 rounded-md font-bold cursor-pointer' data-value="{{ item.vars.value.marked2 }}" data-pos=1>
+                        <div>2</div>
+                        <div>{{ (item.vars.value.bet2/100)|number_format(2) }} </div>
+                        {{ form_row(item.marked2) }}
+                    </div>
+                </div>
+                
+               
+            </div>
+        {% endfor %}
+    </div>
+    <div class='flex flex-row justify-end items-center mt-4 gap-2'>
+        <div class='flex gap-2 items-center'>
+            {{ form_label(form.ballance) }}
+            {{ form_widget(form.ballance) }}
+        </div>
+        {# {{ form_rest(form) }} #}
+        <div>
+            <button class="btn btn-neutral mt-2">{{ button_label|default('Bet') }}</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+</div>
+
+</section>
+{# md:px-14 lg:px-24 #}
+<section class='py-6 border-stone-50 border-t-2'>
+       <h1 class=' secondary-title  text-primary font-bold font-Plex uppercase pb-2'>Output values</h1>
+        <div class='flex justify-start w-full flex flex-wrap'>
+
+            <div id='div-result' class='flex flex-column p-6 m-6 w-full'>
+            {% for ticket in tickets %}
+                <div class='flex flex-col p-4 w-full'>
+                    <div class='p-2  w-full'>
+                    
+                        <div class='flex flex-row p-2 justify-end w-full'>
+                            <div>Number of bets <b>{{ ticket.games|length }} </b></div>
+                        </div>
+                        {% for game in ticket.games %}
+                            <div class='flex flex-row p-2'>
+                                <div class='flex flex-col p-2'>
+                                    {{ loop.index }}
+                                </div>
+                                <div class='flex flex-col p-2 text-start items-start'>
+                                    <div>
+                                        {{ game.team1 }}
+                                    </div>
+                                    <div>
+                                        {{ game.team2 }}
+                                    </div>
+                                
+                                </div>
+                                <div class='flex items-center justify-center font-bold ml-auto'>
+                                    {% if game.marked1 %}
+                                        {{ (game.bet1/100)|number_format(2) }}
+                                    {% endif %}
+                                    {% if game.marked2 %}
+
+                                        {{ (game.bet2/100)|number_format(2) }}
+                                    {% endif %}
+                                </div>
+                               
+                            
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class='flex flex-col p-6 w-full'>
+                        <div class='pb-4'>
+                            Odds: <b>{{ (ticket.multiply/100)|number_format(2) }}</b><br>
+                            Bet:<b>{{ (ticket.sum/100)|number_format(2) }} $</b> 
+                        </div>
+                        <div id='potential-win' class='border-gray-400 border-t-2 flex justify-end pt-4'>
+                            Potential win <b class='pl-2'>{{ (ticket.win/100)|number_format(2) }} $</b>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+      
+
+
+        </div> 
+
+</section>
+
+
+
+
+
+{% endblock %}
+
+{% block javascriptsCustom %} 
+<script>
+let marked = document.querySelectorAll('.clickbet');
+
+marked.forEach(function(e){
+    if(e.dataset.value == 1){  
+        e.classList.add('bg-alert')
+        e.classList.add('text-white')
+    }
+    e.addEventListener('click', function(event){
+        target = event.target;
+        parent = target.parentElement;
+        
+        pos = target.dataset.pos;
+        if(pos == 0){
+            pos2 = 1
+        }else{
+            pos2 = 0;
+        }
+        target2 = parent.querySelector("div[data-pos='"+pos2+"']")
+        input2 = target2.querySelector('input');
+        input2.value = 0;
+        target2.classList.remove('bg-alert')
+        target2.classList.remove('text-white')
+
+        input = target.querySelector('input');
+        if(input.value == 0){
+            input.value = 1;
+            e.classList.add('bg-alert')
+            e.classList.add('text-white')
+        }else {
+            input.value = 0;
+            target.classList.remove('bg-alert')
+            target.classList.remove('text-white')
+        }
+
+    })
+});
+
+</script>
+{% endblock %}

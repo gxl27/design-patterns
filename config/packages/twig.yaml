@@ -1,0 +1,10 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        twig_patterns: '@App\Service\Patterns'
+    form_themes: ['templates/tailwind_custom_form.html.twig']
+    # form_themes: ['tailwind_2_layout.html.twig']
+
+when@test:
+    twig:
+        strict_variables: true

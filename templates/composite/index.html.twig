@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% set pattern = twig_patterns.getPattern(8) %}
+{% block title %}{{ pattern.name }}{% endblock %}
+{% block pagetitle %}{{ pattern.name  }} ({{ pattern.type }}){% endblock %}
+
+{% block cssCustom %}
+<style>
+    .grade {
+        padding:10px;
+        border:1px solid #f3f3f3f3;
+    }
+    .group {
+        border:1px solid #f3f3f3f3;
+        font-weight:bold;
+        text-transform:uppercase;
+    }
+    table{
+         border:1px solid #f3f3f3f3;
+    }
+</style>
+{% endblock %}
+{% block body %}
+    {# get specfic pattern from the global object "twig_pattern"  #}
+    
+    {# include the pattern header for each pattern page #}
+<section class='pt-6 pb-3 flexlg:flex-row'>
+    <h1 class='text-lg text-primary font-bold font-Plex uppercase pb-2'>{{ pattern.name }}</h1>
+</section>
+<section class='pt-2 pb-3 flex flex-col lg:flex-row flex-wrap-reverse'>
+<div class='py-4 lg:w-2/4 flex flex-col gap-4 border-stone-50 lg:border-r-2 lg:pr-6'>
+
+    {# include pattern details and implementation #}
+    {% include '/_pattern/_header.html.twig' %}
+</div>
+
+<div class='py-4 lg:w-2/4 lg:pl-6'>
+    <h2 class='text-primary font-Plex uppercase pb-2'>Input values</h2>
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <button class="btn btn-neutral float-right mt-4">{{ button_label|default('Submit') }}</button>
+    {{ form_end(form) }}
+</div>
+
+</section>
+{# md:px-14 lg:px-24 #}
+<section class='py-6 border-stone-50 border-t-2'>
+       <h1 class=' secondary-title  text-primary font-bold font-Plex uppercase pb-2'>Output values</h1>
+        <div class='flex mx-auto w-full flex flex-wrap justify-center'>
+            <div id='div-result'>{{ result|raw }}</div>  
+        </div> 
+
+</section>
+
+
+
+
+
+{% endblock %}

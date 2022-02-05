@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% set pattern = twig_patterns.getPattern(10) %}
+{% block title %}{{ pattern.name }}{% endblock %}
+{% block pagetitle %}{{ pattern.name  }} ({{ pattern.type }}){% endblock %}
+{% block body %}
+    {# get specfic pattern from the global object "twig_pattern"  #}
+    
+    {# include the pattern header for each pattern page #}
+<section class='pt-6 pb-3 flexlg:flex-row'>
+    <h1 class='text-lg text-primary font-bold font-Plex uppercase pb-2'>{{ pattern.name }}</h1>
+</section>
+<section class='pt-2 pb-3 flex flex-col lg:flex-row flex-wrap-reverse'>
+<div class='py-4 lg:w-2/4 flex flex-col gap-4 border-stone-50 lg:border-r-2 lg:pr-6'>
+
+    {# include pattern details and implementation #}
+    {% include '/_pattern/_header.html.twig' %}
+</div>
+
+<div class='py-4 lg:w-2/4 lg:pl-6'>
+    <h2 class='text-primary font-Plex uppercase pb-2'>Input values</h2>
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <div class='flex flex-row gap-2 justify-center text-sm pt-3'>
+        <div class="btn btn-warning" data-id='1' title='Checks Oil and Fuel'>Start engine</div>
+        <div class="btn btn-warning" data-id='2' title='Checks Oil, Fuel and Temperature'>Check engine</div>
+        <div class="btn btn-warning" data-id='3' title='Checks FLaps and Landing Gear '>Land the plane</div>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+
+</section>
+{# md:px-14 lg:px-24 #}
+<section class='py-6 border-stone-50 border-t-2'>
+       <h1 class=' secondary-title  text-primary font-bold font-Plex uppercase pb-2'>Output values</h1>
+        <div id='div-result' class='flex mx-auto w-full flex'>
+            <div class='flex flex-col gap-2'>
+                {% for message in result %}
+                <div class='flex gap-2'>
+                    {% if message.code == 200 %}
+                    <div class='text-success'>
+                    {% elseif message.code < 200 %}  
+                    <div class='text-text'>
+                    {% else %}
+                    <div class='text-alert'>
+                    {% endif %}
+                    {{ message.message|raw }}
+                {{ message.code }}
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            </div>
+        </div> 
+
+</section>
+
+
+
+
+
+{% endblock %}
+
+
+{% block javascriptsCustom %}
+<script>
+
+let btn = document.querySelectorAll('.btn');
+let hidden = document.querySelector('#facade_type');
+
+btn.forEach(function(e){
+    e.addEventListener('click', function(){
+        hidden.value = e.dataset.id;
+        document.facade.submit();
+    })
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'base.html.twig' %}
+{% set pattern = twig_patterns.getPattern(23) %}
+{% block title %}{{ pattern.name }}{% endblock %}
+{% block pagetitle %}{{ pattern.name  }} ({{ pattern.type }}){% endblock %}
+
+
+{% block body %}
+    {# get specfic pattern from the global object "twig_pattern"  #}
+    
+    {# include the pattern header for each pattern page #}
+
+<section class='pt-6 pb-3 flexlg:flex-row'>
+    <h1 class='text-lg text-primary font-bold font-Plex uppercase pb-2'>{{ pattern.name }}</h1>
+</section>
+<section class='pt-2 pb-3 flex flex-col lg:flex-row flex-wrap-reverse'>
+<div class='py-4 lg:w-2/4 flex flex-col gap-4 border-stone-50 lg:border-r-2 lg:pr-6'>
+
+    {# include pattern details and implementation #}
+    {% include '/_pattern/_header.html.twig' %}
+</div>
+
+<div class='py-4 lg:w-2/4 lg:pl-6'>
+    <h2 class='text-primary font-Plex uppercase pb-2'>Input values</h2>
+    {{ form_start(form) }}
+        <div class='flex flex-col gap-4'>
+            <div class='box border-stone-100 border-b-2 p-4'>
+                <h3 class='pb-2 text-sm font-bold uppercase text-neutral text-center'>TV's</h3>
+                {% for tv in form.tv %}
+                    <div class='flex flex-col p-3 w-full'>
+                        <div class='font-bold'>
+                            {{ tv.vars.value.name }}
+                        </div>
+                        <div class='flex flex-row justify-between items-center w-full'>
+                            <div>   
+                                Price: {{ tv.vars.value.price }} $
+                            </div>
+                            <div>
+                              {{ form_row(tv.quantity) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class='box border-stone-100 border-b-2 p-4'>
+                <h3 class='pb-2 text-sm font-bold uppercase text-neutral text-center'>Laptops</h3>
+                {% for laptop in form.laptop %}
+                    <div class='flex flex-col p-3 w-full'>
+                        <div class='font-bold'>
+                            {{ laptop.vars.value.name }}
+                        </div>
+                        <div class='flex flex-row justify-between items-center w-full'>
+                            <div>   
+                                Price: {{ laptop.vars.value.price }} $
+                            </div>
+                            <div>
+                              {{ form_row(laptop.quantity) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class='box border-stone-100 border-b-2 p-4'>
+                <h3 class='pb-2 text-sm font-bold uppercase text-neutral text-center'>Fridges</h3>
+                {% for fridge in form.fridge %}
+                    <div class='flex flex-col p-3 w-full'>
+                        <div class='font-bold'>
+                            {{ fridge.vars.value.name }}
+                        </div>
+                        <div class='flex flex-row justify-between items-center w-full'>
+                            <div>   
+                                Price: {{ fridge.vars.value.price }} $
+                            </div>
+                            <div>
+                              {{ form_row(fridge.quantity) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class='box p-4'>
+                <h3 class='pb-2 text-sm font-bold uppercase text-neutral text-center'>Air conditioners</h3>
+                {% for air in form.air %}
+                    <div class='flex flex-col p-3 w-full'>
+                        <div class='font-bold'>
+                            {{ air.vars.value.name }}
+                        </div>
+                        <div class='flex flex-row justify-between items-center w-full'>
+                            <div>   
+                                Price: {{ air.vars.value.price }} $
+                            </div>
+                            <div>
+                              {{ form_row(air.quantity) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        
+        </div>
+    {{ form_rest(form) }}
+    <button class="btn btn-neutral float-right mt-4">{{ button_label|default('Submit') }}</button>
+    {{ form_end(form) }}
+</div>
+
+</section>
+{# md:px-14 lg:px-24 #}
+<section class='py-6 border-stone-50 border-t-2'>
+    <h1 class=' secondary-title  text-primary font-bold font-Plex uppercase pb-2'>Output values</h1>
+    <div id='div-result' class='flex w-full flex lg:justify-center flex-col items-center'>
+        <div class='lg:justify-center'>
+            <table class='table-fixed '>
+                <tr class='uppercase font-bold text-center p-2'>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        name
+                    </th>
+                    <th class='hidden lg:block'>
+                        type
+                    </th>
+                    <th>
+                        price ($)
+                    </th>
+                    <th>
+                        quantity
+                    </th>
+                    <th>
+                        discount (%)
+                    </th>
+                    <th>
+                        total
+                    </th>
+
+                </tr>
+
+                {% set current = 0 %}
+                {% for type in cart %}
+                    
+                    {% for item in type %}
+                        {% set current = current + 1 %}
+                        <tr>
+                            <td>
+                                {{ current }}
+                            </td>
+                            <td class='text-left'>
+                                {{ item.name }}
+                            </td>
+                            <td  class='hidden lg:block'>
+                                {{ item.type }}
+                            </td>
+                            <td>
+                                {{ item.price }}
+                            </td>
+                            <td>
+                                {{ item.quantity }}
+                            </td>
+                            <td>
+                                {{ item.discount }}
+                            </td>
+                            <td>
+                                {{ item.total }}
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+            <div class='py-4 w-full flex flex-row justify-between text-zinc-700  border-stone-100 border-b-2'>
+                <div>
+                   <span class='font-bold'> Shopping cart has {{ current }} items </span>
+                </div>
+                <div>
+                    Total cost: <span class='text-success font-bold'>{{ total }} $</span>
+                </div>
+            </div>
+        </div>
+    </div> 
+</section>
+
+{% endblock %}

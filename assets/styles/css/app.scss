@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "/assets/styles/fonts/fonts.scss";
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background-color: rgb(206, 206, 206);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #858585;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #757575;
+  }
+  
+body {
+    opacity:0;
+}
+
+td {
+  @apply p-1 text-sm lg:text-base lg:p-4 text-center;
+
+}
+th {
+  @apply p-1 text-sm lg:text-base lg:p-4 text-center;
+}
+
+#main {
+    /* for footer | calc to substract the navbar height */
+    min-height: calc(100vh - 40px);
+}
+
+.btn, button {
+    @apply font-bold py-2 px-4 rounded transition duration-300 ease-in shadow cursor-pointer text-white;
+  }
+  .btn-primary {
+    @apply bg-primary;
+  }
+  .btn-primary:hover {
+    @apply bg-primary-light;
+  }
+
+  .btn-success {
+    @apply bg-success;
+  }
+  .btn-success:hover {
+    @apply bg-success-light;
+  }
+
+  .btn-neutral {
+    @apply bg-neutral;
+  }
+  .btn-neutral:hover {
+    @apply bg-neutral-light;
+  }
+
+  .btn-alert {
+    @apply bg-alert;
+  }
+  .btn-alert:hover {
+    @apply bg-alert-light;
+  }
+
+
+  .btn-warning {
+    @apply bg-warning text-zinc-800;
+  }
+  .btn-warning:hover {
+    @apply bg-warning-light text-zinc-500;
+  }
+
+
+  .btn-transparent {
+      @apply text-primary ;
+  }
+
+  .btn-transparent:hover {
+    @apply bg-primary text-white border-transparent;
+  }
+
+  html, body {
+    scroll-behavior: smooth;
+}
+
+.firstletter::first-letter {
+    @apply pl-6;
+}
+
+.left-50 {
+    left: 50%;
+}
+.right-50 {
+    right: 50%;
+}
+.top-50 {
+    top: 50%;
+}
+
+
+
+.-z-1 {
+    z-index: -1;
+}
+
+.secondary-title {
+    @apply pb-2;
+}
+
+
+
+/* .secondary-title::before {
+    content: "";
+    @apply block w-10 h-1 bg-primary rounded-full mb-2;
+} */
+
+.section-paragraph {
+    @apply text-secondary my-6 w-full max-w-3xl;
+}
+
+.badge {
+    @apply px-4 py-2 text-sm rounded bg-badge;
+}
+
+[id] {
+scroll-margin-top: 100px;
+}
+
+.left-percentage {
+    left: 5%;
+}
+
+.h-screen-partial {
+    height: 80vh;
+}
+
+.nav-dot {
+    transition: background 200ms, border-color 200ms;
+}
+
+.selected-circle {
+    @apply border-primary bg-primary;
+}
+
+@layer base {
+    [type='text'],
+    [type='email'],
+    [type='url'],
+    [type='password'],
+    [type='number'],
+    [type='date'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='search'],
+    [type='tel'],
+    [type='time'],
+    [type='week'],
+    [multiple],
+    textarea,
+    select {
+        @apply rounded border-primary;
+    }
+
+    select {
+        @apply focus:ring-primary text-primary focus:border-primary;
+    }
+
+    option {
+        @apply text-primary;
+    }
+    option:hover{
+        @apply bg-red-500 text-red-500;
+    }
+
+    [type='checkbox'],
+    [type='radio'] {
+        @apply bg-white text-primary border-primary focus:ring-primary;
+    }
+
+}
+
+// upscreen 
+#up-screen {
+    z-index: 100;
+    display: none;
+    position: fixed;
+    bottom: 1.5em;
+    right: 2em;
+    opacity: 0.5;
+    transition: all .3s ease-out;
+    cursor: pointer;
+    
+  
+    img {
+    //   background-color: gray !important; 
+    @apply bg-primary;
+      width: 40px;
+      padding:10px;
+      border-radius: 50%;
+    }
+}
+        

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google" content="notranslate" />
+        <title>{% block title %}Homepage{% endblock %}</title>
+        {% block stylesheets %}
+            {# <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> #}
+            {{ encore_entry_link_tags('app') }}
+            {# add custom css #}
+
+                {% block cssCustom %} {% endblock %}
+
+        {% endblock %}
+    </head>
+    <body class='font-Plex bg-body text-text'>
+        {% block upscreen %}
+            {# include upscreen (can be removed if needed, overwriting the block) #}
+            <div id='up-screen'>
+                <img src="/img/chev-up.svg" alt="up-arr"/>
+            </div>
+        {% endblock %}
+
+        {# navbar #}
+        <header class='container py-4 md:py-6'>
+            <nav class='flex justify-between items-center px-8 '>
+                
+                    <div class='flex gap-2 items-center'>
+                        <a href="{{ path('home') }}" class='flex gap-2 items-center'>
+                        <img src="/img/logo-hover.svg" class='h-6 lg:h-10 ' alt="brand">
+                        <span class='pr-4 lg:pr-10 uppercase text-primary lg:text-xl font-bold '>Design patterns</span>
+                        </a>
+                        
+                    </div>
+                    <div class='flex gap-2 items-center'>
+                        <img src="/img/github.svg" class='h-6 lg:h-10 ml-auto' style='width:20px' alt="brand"> 
+                        <span>Github</span>
+                        <a href="https://github.com/gxl27/design-patterns" title="Github repository" class='btn btn-primary shadow text-center'><span>download</span></a>
+                    </div>
+
+            </nav>
+        </header>
+
+        {# main content #}
+        <div id="main" class='container border-stone-50 border-t-2 px-8'>
+        {% block body %}{% endblock %}
+        </div>
+
+        {# footer #}
+        {% include '/_footer/_footer.html.twig' %}
+
+        {# base javascripts #}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" integrity="sha256-T/f7Sju1ZfNNfBh7skWn0idlCBcI3RwdLSS4/I7NQKQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js" integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ==" crossorigin="anonymous"></script>
+        {{ encore_entry_script_tags('app') }}
+
+        {# add custom javascripts #}
+        {% block javascriptsCustom %} {% endblock %}
+    </body>
+</html>
