@@ -10,7 +10,7 @@ class Mazda extends AbstractCar{
 
     public function description(){
 
-        $result = "This it's a Mazda car. <br>";
+        $result = "This is a Mazda car. <br>";
         $result .= $this->engine->start() . "<br>";
         $result .= $this->engine->energy() . "<br>";
 

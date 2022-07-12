@@ -42,10 +42,12 @@ class AbstractFactoryController extends AbstractController
                     break;
             }
             $factory->createProduct($productName);
+
+            // display the message from the product ()
+            $result = $factory->display();
             
         }
-        // display the message from the product ()
-        $result = $factory->display();
+        
 
         return $this->render('abstract/index.html.twig', [
             'form' => $form->createView(),

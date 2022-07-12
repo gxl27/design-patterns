@@ -2,8 +2,6 @@
 
 namespace App\Service;
 
-use phpDocumentor\Reflection\Types\Self_;
-
 // this entity it's only with constants and it includes all the design patterns informations from the site;
 // it's design like that because it's a portofolio project;
 // it is public on github for download and test;
@@ -14,7 +12,7 @@ class Patterns{
     const PATTERNS = [
         1 => [
             'name' => 'Abstract factory',
-            'title' => 'Create Vehicles and Toy products.',
+            'title' => 'Creates Vehicle and Toy products.',
             'type' => 'creational',
             'route' => 'abstract',
             'img' => '/img/abstract.svg',
@@ -78,7 +76,7 @@ class Patterns{
         ],
         8 => [
             'name' => 'Composite',
-            'title' => 'Generate group classes with promoted/unpromoted students.',
+            'title' => 'Generate groups of classes with students.',
             'type' => 'structural',
             'route' => 'composite',
             'img' => '/img/composite.svg',
@@ -173,7 +171,7 @@ class Patterns{
             'route' => 'memento',
             'img' => '/img/memento.svg',
             'details' => "Memento is a behavioral design pattern that lets you save and restore the previous state of an object without revealing the details of its implementation.",
-            'implementation' => ""
+            'implementation' => "The Memento pattern delegates creating the state snapshots to the actual owner of that state, the originator object. Hence, instead of other objects trying to copy the editor’s state from the “outside,” the editor class itself can make the snapshot since it has full access to its own state."
         ],
         19 => [
             'name' => 'Observer',
@@ -182,7 +180,7 @@ class Patterns{
             'route' => 'observer',
             'img' => '/img/observer.svg',
             'details' => "Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.",
-            'implementation' => ""
+            'implementation' => "The Observer pattern suggests that you add a subscription mechanism to the publisher class so individual objects can subscribe to or unsubscribe from a stream of events coming from that publisher. Fear not! Everything isn’t as complicated as it sounds. In reality, this mechanism consists of 1) an array field for storing a list of references to subscriber objects and 2) several public methods which allow adding subscribers to and removing them from that list."
         ],
         20 => [
             'name' => 'State',
@@ -191,7 +189,7 @@ class Patterns{
             'route' => 'state',
             'img' => '/img/state.svg',
             'details' => "State is a behavioral design pattern that lets an object alter its behavior when its internal state changes. It appears as if the object changed its class.",
-            'implementation' => ""
+            'implementation' => "The State pattern suggests that you create new classes for all possible states of an object and extract all state-specific behaviors into these classes."
         ],
         21 => [
             'name' => 'Strategy',
@@ -200,7 +198,7 @@ class Patterns{
             'route' => 'strategy',
             'img' => '/img/strategy.svg',
             'details' => "Strategy is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects interchangeable.",
-            'implementation' => ""
+            'implementation' => "The Strategy pattern suggests that you take a class that does something specific in a lot of different ways and extract all of these algorithms into separate classes called strategies."
         ],
         22 => [
             'name' => 'Template method',
@@ -209,7 +207,7 @@ class Patterns{
             'route' => 'template',
             'img' => '/img/template.svg',
             'details' => "Template Method is a behavioral design pattern that defines the skeleton of an algorithm in the superclass but lets subclasses override specific steps of the algorithm without changing its structure.",
-            'implementation' => ""
+            'implementation' => "The Template Method pattern suggests that you break down an algorithm into a series of steps, turn these steps into methods, and put a series of calls to these methods inside a single template method. "
         ],
         23 => [
             'name' => 'Visitor',
@@ -218,7 +216,9 @@ class Patterns{
             'route' => 'visitor',
             'img' => '/img/visitor.svg',
             'details' => "Visitor is a behavioral design pattern that lets you separate algorithms from the objects on which they operate.",
-            'implementation' => ""
+            'implementation' => "The Visitor pattern suggests that you place the new behavior into a separate class called visitor, instead of trying to integrate it into existing classes. The original object that had to perform the behavior is now passed to one of the visitor’s methods as an argument, providing the method access to all necessary data contained within the object.
+
+            "
         ],
     ];
 

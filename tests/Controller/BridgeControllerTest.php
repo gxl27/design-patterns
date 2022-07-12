@@ -64,7 +64,7 @@ class BridgeControllerTest extends WebTestCase {
         ]);
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('#div-result', 'This it\'s a Mazda car.');
+        $this->assertSelectorTextContains('#div-result', 'This is a Mazda car.');
     }
 
 }

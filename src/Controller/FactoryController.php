@@ -28,10 +28,10 @@ class FactoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $creator->create($form->get('vehicle')->getData());
-        }
 
-        $vehicle = $creator->getVehicle();
-        $result = $vehicle->calculate();
+            $vehicle = $creator->getVehicle();
+            $result = $vehicle->calculate();
+        }
 
         return $this->render('factory/index.html.twig', [
             'form' => $form->createView(),
